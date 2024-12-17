@@ -130,9 +130,10 @@ public class DictionaryGraph<V> implements Graph<V> {
    */
   @Override
   public void deleteVertex(V vertex) {
-    vertices.delete(vertex);
-    diEdges.delete(vertex);
+    vertices.delete(vertex); // Borramos el vértice de la lista de vértices
+    diEdges.delete(vertex); // Borramos todas las aristas que tengan a vertex como origen
 
+    // Borramos todas las aristas que tengan a vertex como destino
     for (V source : vertices) {
       deleteDiEdge(source, vertex);
     }
