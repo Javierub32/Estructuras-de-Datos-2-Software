@@ -144,7 +144,7 @@ public class DictionaryGraph<V> implements Graph<V> {
    */
   @Override
   public Set<V> vertices() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return vertices;
   }
 
   /**
@@ -152,7 +152,7 @@ public class DictionaryGraph<V> implements Graph<V> {
    */
   @Override
   public Set<Edge<V>> edges() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return null; //Hacer
   }
 
   /**

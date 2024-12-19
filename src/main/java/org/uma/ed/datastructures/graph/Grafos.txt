@@ -1,0 +1,26 @@
+public class GraphTraversal<V> {
+    public List<V> DFT(Traversable<V> graph, V source) {
+        Set<V> visited = new HashSet<>();
+        List<V> traversal = new ArrayList<>();
+
+        Stack<V> stack = ArrayStack.of(source);
+
+        while (!stack.isEmpty()) {
+            V vertex = stack.top();
+            stack.pop;
+
+            if(!visited.contains(vertex)){
+                visited.insert(vertex);
+                traversal.append(vertex);
+
+                for(V successor : graph.successor(vertex)){
+                    if(!visited.contains(successor)){
+                        stack.push(successor);
+                    }
+                }
+            }
+        }
+
+        return traversal;
+    }
+}

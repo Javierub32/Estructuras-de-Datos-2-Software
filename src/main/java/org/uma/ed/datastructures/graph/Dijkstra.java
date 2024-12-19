@@ -2,6 +2,7 @@
 package org.uma.ed.datastructures.graph ;
 
 import org.uma.ed.datastructures.dictionary.Dictionary;
+import org.uma.ed.datastructures.dictionary.HashDictionary;
 import org.uma.ed.datastructures.dictionary.JDKHashDictionary;
 import org.uma.ed.datastructures.list.JDKArrayList;
 import org.uma.ed.datastructures.list.List;
@@ -45,7 +46,39 @@ public class Dijkstra {
       }
     }
       
-    throw new UnsupportedOperationException("Not implemented yet");
+    Set<V> verticesOpt = new JDKHashSet<>();
+    Dictionary<V, Integer> costOpt = JDKHashDictionary.empty();
+    PriorityQueue<Extension<V>> queueOpt = JDKPriorityQueue.empty();
+
+    costOpt.insert(source, 0);
+    verticesOpt.insert(source);
+
+    // Iniciar con las extensiones desde el vértice origen
+    for (WeightedGraph.Successor<V, Integer> successor : weightedGraph.successors(source)) {
+      V destination = successor.vertex();
+      Integer totalCost = successor.weight();
+      queueOpt.enqueue(new Extension<>(source, destination, totalCost));
+    }
+
+    while (!queueOpt.isEmpty()) {
+      Extension<V> extension = queueOpt.first();
+      V dest = extension.destination();
+
+      if (!verticesOpt.contains(dest)) {
+          costOpt.insert(dest, extension.totalCost());
+          verticesOpt.insert(dest);
+
+          for (WeightedGraph.Successor<V, Integer> successor  : weightedGraph.successors(dest)) {
+              V nextDest = successor.vertex();
+              if (!verticesOpt.contains(nextDest)) {
+                  Integer newCost = extension.totalCost() + successor.weight();
+                  queueOpt.enqueue(new Extension<>(dest, nextDest, newCost));
+              }
+          }
+      }
+  }
+
+    return costOpt;
   }
 
   /**
