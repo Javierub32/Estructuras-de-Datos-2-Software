@@ -18,6 +18,22 @@ import org.uma.ed.datastructures.tuple.Tuple2;
  * @author Pepe Gallardo, Data Structures, Grado en Informática. UMA.
  */
 public class Dijkstra {
+   
+    // Class for representing an extension of a path from vertex source to
+    // vertex destination and total cost of reaching destination.
+    // This class implements Comparable interface to allow sorting of extensions based on total cost.
+    record Extension<V>(V source, V destination, Integer totalCost) implements Comparable<Extension<V>> {
+      @Override
+      // Best extension is the one with the smallest total cost.
+      // Will be used later by the priority queue.
+      public int compareTo(Extension<V> that) {
+        return this.totalCost.compareTo(that.totalCost);
+      }
+
+      static <V> Extension<V> of(V source, V destination, Integer totalCost) {
+        return new Extension<>(source, destination, totalCost);
+      }
+    }
    /**
    * Computes costs of shortest paths from a source vertex to all other vertices in a weighted graph.
    *
@@ -29,22 +45,7 @@ public class Dijkstra {
    */
   public static <V> Dictionary<V, Integer> dijkstra(
       WeightedGraph<V, Integer> weightedGraph, V source) {
- 
-    // Class for representing an extension of a path from vertex source to
-    // vertex destination and total cost of reaching destination.
-    // This class implements Comparable interface to allow sorting of extensions based on total cost.
-    record Extension<V>(V source, V destination, Integer totalCost) implements Comparable<Extension<V>> {
-      @Override
-      // Best extension is the one with the smallest total cost.
-      // Will be used later by the priority queue.
-      public int compareTo(Extension that) {
-        return this.totalCost.compareTo(that.totalCost);
-      }
 
-      static <V> Extension<V> of(V source, V destination, Integer totalCost) {
-        return new Extension<>(source, destination, totalCost);
-      }
-    }
       
     Set<V> verticesOpt = new JDKHashSet<>();
     Dictionary<V, Integer> costOpt = JDKHashDictionary.empty();
@@ -57,7 +58,7 @@ public class Dijkstra {
     for (WeightedGraph.Successor<V, Integer> successor : weightedGraph.successors(source)) {
       V destination = successor.vertex();
       Integer totalCost = successor.weight();
-      queueOpt.enqueue(new Extension<>(source, destination, totalCost));
+      queueOpt.enqueue(Extension.of(source, destination, totalCost));
     }
 
     while (!queueOpt.isEmpty()) {
@@ -72,7 +73,7 @@ public class Dijkstra {
               V nextDest = successor.vertex();
               if (!verticesOpt.contains(nextDest)) {
                   Integer newCost = extension.totalCost() + successor.weight();
-                  queueOpt.enqueue(new Extension<>(dest, nextDest, newCost));
+                  queueOpt.enqueue(Extension.of(dest, nextDest, newCost));
               }
           }
       }
