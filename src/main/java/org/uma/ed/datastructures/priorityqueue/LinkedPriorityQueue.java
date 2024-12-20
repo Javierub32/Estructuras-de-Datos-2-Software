@@ -113,7 +113,7 @@ public class LinkedPriorityQueue<T> extends AbstractPriorityQueue<T> implements 
    */
   @Override
   public boolean isEmpty() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return size == 0;
   }
 
   /**
@@ -122,7 +122,7 @@ public class LinkedPriorityQueue<T> extends AbstractPriorityQueue<T> implements 
    */
   @Override
   public int size() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return size;
   }
 
   /**
@@ -132,7 +132,24 @@ public class LinkedPriorityQueue<T> extends AbstractPriorityQueue<T> implements 
    */
   @Override
   public void enqueue(T element) {
-    throw new UnsupportedOperationException("Not implemented yet");
+    Node<T> newNode = new Node<>(element, null);
+    if (isEmpty()) {
+      first = newNode;
+    } else {
+      Node<T> prev = null;
+      Node<T> current = first;
+      while (current != null && comparator.compare(element, current.element) > 0) {
+        prev = current;
+        current = current.next;
+      }
+      if (prev == null) { // insert at beginning
+        newNode.next = first;
+        first = newNode;
+      } else { // insert after prev
+        prev.next = newNode;
+        newNode.next = current;
+      }
+    }
   }
 
   /**
@@ -143,7 +160,10 @@ public class LinkedPriorityQueue<T> extends AbstractPriorityQueue<T> implements 
    */
   @Override
   public T first() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    if(isEmpty()){
+      throw new EmptyPriorityQueueException("Priority queue is empty");
+    }
+    return first.element;
   }
 
   /**
@@ -154,7 +174,11 @@ public class LinkedPriorityQueue<T> extends AbstractPriorityQueue<T> implements 
    */
   @Override
   public void dequeue() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    if(isEmpty()){
+      throw new EmptyPriorityQueueException("Priority queue is empty");
+    }
+    first = first.next;
+    size--;
   }
 
   /**
@@ -163,7 +187,8 @@ public class LinkedPriorityQueue<T> extends AbstractPriorityQueue<T> implements 
    */
   @Override
   public void clear() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    first = null;
+    size = 0;
   }
 
   /**

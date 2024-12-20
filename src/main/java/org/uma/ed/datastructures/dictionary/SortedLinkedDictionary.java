@@ -224,7 +224,7 @@ public class SortedLinkedDictionary<K, V> extends AbstractSortedDictionary<K, V>
     Finder finder = new Finder(entry.key());
     
     if(finder.found){
-      finder.current.entry = entry;
+      finder.current.entry = entry; // Si ya está, sobreescribo
     } else {
       if(finder.previous == null){ // Insert in first position
         Node<K, V> node = new Node<>(entry, first);
@@ -278,7 +278,7 @@ public class SortedLinkedDictionary<K, V> extends AbstractSortedDictionary<K, V>
         if(first == null){
           last = null;
         }
-      } else {
+      } else { // Delete after previous
         finder.previous.next = finder.current.next;
         if(finder.current.next == null){
           last = finder.previous;
@@ -319,7 +319,10 @@ public class SortedLinkedDictionary<K, V> extends AbstractSortedDictionary<K, V>
    */
   @Override
   public Entry<K, V> maximum() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    if(last == null){
+      throw new RuntimeException("SortedLinkedDictionary: dictionary is empty");
+    }
+    return last.entry;
   }
 
   /**

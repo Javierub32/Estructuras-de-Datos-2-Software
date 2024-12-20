@@ -478,7 +478,6 @@ public class SortedLinkedSet<T> extends AbstractSortedSet<T> implements SortedSe
     }
 
     return builder.toSortedLinkedSet();
-    
   }
 
   /**
@@ -517,7 +516,6 @@ public class SortedLinkedSet<T> extends AbstractSortedSet<T> implements SortedSe
     }
 
     return builder.toSortedLinkedSet();
-
   }
 
   /**
@@ -559,7 +557,7 @@ public class SortedLinkedSet<T> extends AbstractSortedSet<T> implements SortedSe
       builder.append(e1);
       e1 = nextOrNull(it1);
     }
-
+    
     return builder.toSortedLinkedSet();
   }
 }

@@ -209,7 +209,6 @@ public class LinkedList<T> extends AbstractList<T> implements List<T> {
     } else {
       last.next = node;
     }
-
     last = node;
     size++;
   }
@@ -246,6 +245,9 @@ public class LinkedList<T> extends AbstractList<T> implements List<T> {
       last = node;
     } else if (index == 0){ // Insertion at head and list was not empty
       first = new Node<>(element, first);
+      if (size == 0) {
+        last = first;
+      }
     } else { // Internal insertion
       validateIndex(index);
       Node<T> previous = atIndex(index -1);

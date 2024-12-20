@@ -1,6 +1,5 @@
 package org.uma.ed.datastructures.queue;
 
-import org.uma.ed.datastructures.stack.LinkedStack;
 
 /**
  * This class represents a Queue data structure implemented using a linked structure of nodes.
@@ -183,7 +182,7 @@ public class LinkedQueue<T> extends AbstractQueue<T> implements Queue<T> {
    */
   @Override
   public T first() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return first.element;
   }
 
   /**

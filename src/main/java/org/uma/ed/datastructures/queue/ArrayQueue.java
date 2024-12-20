@@ -1,7 +1,5 @@
 package org.uma.ed.datastructures.queue;
 
-import java.util.NoSuchElementException;
-
 /**
  * This class represents a Queue data structure implemented using an array of elements.
  * The size of the array (capacity) is automatically increased when it runs out of capacity.
@@ -60,7 +58,7 @@ public class ArrayQueue<T> extends AbstractQueue<T> implements Queue<T> {
     elements = (T[]) new Object[initialCapacity];
     size = 0;
     first = 0;
-    last = initialCapacity - 1; // so that first increment makes it 0
+    last = elements.length - 1; // so that first increment makes it 0
   }
 
   /**
@@ -169,7 +167,7 @@ public class ArrayQueue<T> extends AbstractQueue<T> implements Queue<T> {
    */
   @Override
   public boolean isEmpty() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return size == 0;
   }
 
   /**
@@ -178,7 +176,7 @@ public class ArrayQueue<T> extends AbstractQueue<T> implements Queue<T> {
    */
   @Override
   public int size() {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return size;
   }
 
   /**
@@ -261,9 +259,10 @@ public class ArrayQueue<T> extends AbstractQueue<T> implements Queue<T> {
       elements[first] = null;
       first = advance(first);
     }
+    
     size = 0;
     first = 0;
-    last = size - 1;
+    last = elements.length - 1;
   }
 
   /**

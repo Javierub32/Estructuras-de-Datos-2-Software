@@ -1,6 +1,5 @@
 package org.uma.ed.datastructures.stack;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -234,6 +233,7 @@ public class ArrayStack<T> extends AbstractStack<T> implements Stack<T> {
     if (isEmpty()) {
       throw new EmptyStackException("pop on empty stack");
     }
+    elements[size - 1] = null;
     size--;
   }
 
@@ -243,7 +243,9 @@ public class ArrayStack<T> extends AbstractStack<T> implements Stack<T> {
    */
   @Override
   public void clear() {
-    size = 0;
+    for(int i = 0; i < size; i++) {
+      elements[i] = null;
+    }
   }
 
   /**

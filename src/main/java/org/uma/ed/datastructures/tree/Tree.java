@@ -62,14 +62,14 @@ public class Tree {
    * @return The number of nodes in the tree.
    */
   public static int size(Node<?> root) {
-    int size = 0; //Tamaño de este subarbol
+    int size = 0;
     if (root != null) {
-      size = 1; //Es el tamaño de su raiz
+      size = 1;
       for (var child : root.children) {
-        size += size(child); //Y se añade el tamaño de cada hijo
+        size += size(child); 
       }
     }
-    return size; //Se devuelve el tamaño que tiene subarbol
+    return size;
   }
 
   /**

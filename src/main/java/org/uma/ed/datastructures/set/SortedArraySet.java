@@ -311,11 +311,10 @@ public class SortedArraySet<T> extends AbstractSortedSet<T> implements SortedSet
    */
   @Override
   public void clear() {
-    // Establece cada posición en null
     for (int i = 0; i < size; i++) {
       elements[i] = null;
     }
-    size = 0; // Resetea el tamaño
+    size = 0;
   }
 
   /**
@@ -341,7 +340,7 @@ public class SortedArraySet<T> extends AbstractSortedSet<T> implements SortedSet
       throw new NoSuchElementException("maximum on empty set");
     }
     return elements[size - 1];
-}
+  }
 
 
   /**
